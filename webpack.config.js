@@ -1,6 +1,7 @@
 const path = require('path');
 const config = require('./config');
 const WebpackNotifier = require('webpack-notifier');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -23,9 +24,17 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ]
+      }
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new WebpackNotifier({ alwaysNotify: true }),
   ],
   watch: config.WATCH,
